@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  nst-db:
+    image: mysql
+    container_name: nst-db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3306:3306"
+    # volumes:
+    #   - ./data/db:/var/lib/mysql
+    networks: 
+      - nst-net
+    restart: always
+  
+  # nst-app:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   depends_on:
+  #     - nst-db
+  #   container_name: nst-app
+  #   ports:
+  #     - "3000:3000"
+  #   networks: 
+  #     - nst-net
+  #   restart: always
+
+networks:
+  nst-net:
+    driver: bridge
+    name: nst-net
